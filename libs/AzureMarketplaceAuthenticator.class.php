@@ -15,12 +15,7 @@
  * @author David Wilcock <dave.wilcock@gmail.com>
  */
 class AzureMarketplaceAuthenticator {
-   
-   /**
-    * Directory of the token file
-    */
-   const TOKEN_DIRECTORY = '/tmp/';
-   
+      
    /**
     * Grant type
     */
@@ -60,20 +55,21 @@ class AzureMarketplaceAuthenticator {
    private $str_token_file;
    
    /**
-    * Both arguments are required for ANY operation, which is why they are in
+    * All arguments are required for ANY operation, which is why they are in
     * the constructor.
     *
     * @param String $str_client_id
     * @param String $str_client_secret 
+	 * @param String $str_application_scope 
     */
    public function __construct($str_client_id, $str_client_secret, $str_application_scope) {
-      
+	
       $this->str_client_id = $str_client_id;
       $this->str_client_secret = $str_client_secret;
       $this->str_application_scope = $str_application_scope;
-      
-      $this->str_token_file = self::TOKEN_DIRECTORY . sha1($this->str_client_id . $this->str_client_secret);
-      
+		
+      $this->str_token_file = sys_get_temp_dir() . sha1($this->str_client_id . $this->str_client_secret);
+		
    }
    
    /**
@@ -99,6 +95,7 @@ class AzureMarketplaceAuthenticator {
     * @return Boolean 
     */
    private function token_has_expired() {
+	
       if (file_exists($this->str_token_file)){
          if ($this->get_current_expiry() <= time()){
             return TRUE;
@@ -108,6 +105,7 @@ class AzureMarketplaceAuthenticator {
       } else {
          return TRUE;
       }
+		
    }
    
    /**
@@ -131,6 +129,7 @@ class AzureMarketplaceAuthenticator {
       curl_setopt($obj_connection, CURLOPT_RETURNTRANSFER, 1);
       curl_setopt($obj_connection, CURLOPT_POSTFIELDS, $str_query);
       curl_setopt($obj_connection, CURLOPT_POST, TRUE);
+		curl_setopt($obj_connection, CURLOPT_SSL_VERIFYPEER, FALSE);
       
       $str_response = curl_exec($obj_connection);
       $obj_response = json_decode($str_response);
