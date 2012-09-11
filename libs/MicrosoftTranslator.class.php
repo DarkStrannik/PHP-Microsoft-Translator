@@ -52,10 +52,8 @@ class MicrosoftTranslator {
     * @param string $str_target_language
     * @return string
     */
-   public function translate($str_source_text = NULL, $str_source_language = NULL, $str_target_language = NULL) {
-      if (is_null($str_source_text) || is_null($str_source_language) || is_null($str_target_language)){
-         throw new Exception("Invalid argument");
-      }
+   public function translate($str_source_text, $str_source_language, $str_target_language) {
+
       $arr_request_arguments = array (
          'appId' => '', // no longer used, but pass it anyway
          'text' => $str_source_text,
