@@ -7,8 +7,8 @@
  * @version $Id: $
  */
 
-require_once 'AzureMarketplaceAuthenticator.class.php';
-require_once 'MicrosoftTranslator.class.php';
+require_once '../lib/AzureMarketplaceAuthenticator.class.php';
+require_once '../lib/MicrosoftTranslator.class.php';
 
 try {
    $obj_translator_auth = new AzureMarketplaceAuthenticator('AZURE_KEY', 'AZURE_SECRET' ,'http://api.microsofttranslator.com');
