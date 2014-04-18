@@ -21,7 +21,7 @@ try {
    if (is_null($str_from) || is_null($str_to) || is_null($str_text)){
       throw new Exception("One of the parameters wasn't found");
    }
-   $str_result = array('Result' => $obj_translator->translate($str_text, $str_from, $str_to)));
+   $str_result = array('Result' => $obj_translator->translate($str_text, $str_from, $str_to));
    echo $str_result;
    
 } catch (Exception $obj_exception) {
